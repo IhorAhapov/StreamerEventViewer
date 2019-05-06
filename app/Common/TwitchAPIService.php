@@ -12,6 +12,7 @@ use \romanzipp\Twitch\Twitch;
 class TwitchAPIService
 {
 
+    const EVENT_LEASE_SECONDS = 864000;
     /**
      * @var Twitch
      */
@@ -28,7 +29,14 @@ class TwitchAPIService
 
     public function getStreamerByName(string $name) : Streamer
     {
-        $response = $this->twitch->getUserByName($name);
+        try {
+            $response = $this->twitch->getUserByName($name);
+        } catch (\Exception $exception) {
+            // todo some exception handle here
+            info($exception->getMessage());
+            throw new StreamerNotFound();
+        }
+
         $streamerArray = json_decode(json_encode(collect($response->data)->first()), true);
 
         if (!$streamerArray) {
@@ -46,22 +54,33 @@ class TwitchAPIService
 
     public function subscribeToEvents(Streamer $streamer)
     {
-        $this->twitch->subscribeWebhook(
-            'https://webhook.site/2f8aeac0-997e-4f9d-84e7-fe1aaebf4bc1', //todo use route('twitchEventsCallback', ['bla' => vla]) for saving event here
-            $this->twitch->webhookTopicStreamMonitor($streamer->streamer_id),
-            7200
-        );
+        try {
+            $this->twitch->subscribeWebhook(
+                route('twitchEventsCallback', ['id' => $streamer->streamer_id]),
+                $this->twitch->webhookTopicStreamMonitor($streamer->streamer_id),
+                self::EVENT_LEASE_SECONDS
+            );
 
-        $this->twitch->subscribeWebhook(
-            'https://webhook.site/2f8aeac0-997e-4f9d-84e7-fe1aaebf4bc1',
-            $this->twitch->webhookTopicUserFollows($streamer->streamer_id),
-            7200
-        );
+            $this->twitch->subscribeWebhook(
+                route('twitchEventsCallback', ['id' => $streamer->streamer_id]),
+                $this->twitch->webhookTopicUserFollows($streamer->streamer_id),
+                self::EVENT_LEASE_SECONDS
+            );
 
-        $this->twitch->subscribeWebhook(
-            'https://webhook.site/2f8aeac0-997e-4f9d-84e7-fe1aaebf4bc1',
-            $this->twitch->webhookTopicUserGainsFollower($streamer->streamer_id),
-            7200
-        );
+            $this->twitch->subscribeWebhook(
+                route('twitchEventsCallback', ['id' => $streamer->streamer_id]),
+                $this->twitch->webhookTopicUserGainsFollower($streamer->streamer_id),
+                self::EVENT_LEASE_SECONDS
+            );
+        } catch (\Exception $exception) {
+            // todo some exception handle here
+            info($exception->getMessage());
+        }
+
+    }
+
+    public function unsubscribeFromEvents(Streamer $streamer)
+    {
+        //todo unsubscribe when streamer was deleted
     }
 }

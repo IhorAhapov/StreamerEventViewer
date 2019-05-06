@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function store(Request $request)
+    public function store(int $id, Request $request)
     {
-        info(json_encode($request));
+        info("channel id = $id : " . json_encode($request->all()));
+
+        if ($request->has('hub_challenge')) {
+            return $request->get('hub_challenge');
+        }
     }
 }

@@ -8,7 +8,7 @@
                     <div class="card-header">Dashboard</div>
 
                     <div class="card-body">
-                        Add your favorite streamers
+                        Add your favorite streamer
                         <form method="POST" action="{{ route('addStreamer') }}">
                             <div class="input-group mb-3">
                                 <input type="text" name="name" class="form-control" placeholder="Name"
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="card-body">
-                        Your channels:
+                        Your streamers:
                         @foreach($streamers as $streamer)
                             <div class="input-group mb-3">
                                 <a href="{{ route('showStreamer', ['id' => $streamer['id']]) }}">
