@@ -22,7 +22,8 @@ Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCall
     ->where('provider', 'twitch')
     ->name('socialCallback');
 
-Route::get('channel/{id}/event-callback', 'EventController@store')->name('twitchEventsCallback');
+Route::get('channel/{id}/event-callback', 'EventController@accept')->name('twitchEventsCallbackConfirm');
+Route::post('channel/{id}/event-callback', 'EventController@store')->name('twitchEventsCallbackHandle');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', 'StreamerController@index')->name('dashboard');

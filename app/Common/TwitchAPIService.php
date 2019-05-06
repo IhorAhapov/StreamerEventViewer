@@ -56,19 +56,19 @@ class TwitchAPIService
     {
         try {
             $this->twitch->subscribeWebhook(
-                route('twitchEventsCallback', ['id' => $streamer->streamer_id]),
+                route('twitchEventsCallbackConfirm', ['id' => $streamer->streamer_id]),
                 $this->twitch->webhookTopicStreamMonitor($streamer->streamer_id),
                 self::EVENT_LEASE_SECONDS
             );
 
             $this->twitch->subscribeWebhook(
-                route('twitchEventsCallback', ['id' => $streamer->streamer_id]),
+                route('twitchEventsCallbackConfirm', ['id' => $streamer->streamer_id]),
                 $this->twitch->webhookTopicUserFollows($streamer->streamer_id),
                 self::EVENT_LEASE_SECONDS
             );
 
             $this->twitch->subscribeWebhook(
-                route('twitchEventsCallback', ['id' => $streamer->streamer_id]),
+                route('twitchEventsCallbackConfirm', ['id' => $streamer->streamer_id]),
                 $this->twitch->webhookTopicUserGainsFollower($streamer->streamer_id),
                 self::EVENT_LEASE_SECONDS
             );
