@@ -32,4 +32,9 @@ class StreamerRepository implements StreamerRepositoryInterface
     {
         $this->user = $user;
     }
+
+    public function delete(Streamer $streamer): bool
+    {
+        return $streamer->delete();
+    }
 }

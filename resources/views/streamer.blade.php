@@ -3,12 +3,21 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Streamer {{ $streamer['name'] }}</div>
 
                     <div class="card-body">
                         <div id="twitch-embed"></div>
+                    </div>
+
+                    <div class="card-body">
+                        Last events :
+                        @forelse ($events as $event)
+                            <li>{{ $event['name'] }} : {{ $event['description'] }}</li>
+                        @empty
+                            <p>No events</p>
+                        @endforelse
                     </div>
 
                 </div>
@@ -19,7 +28,7 @@
     <script type="text/javascript">
         var embed = new Twitch.Embed("twitch-embed", {
             width: '100%',
-            height: '840',
+            height: '450',
             channel: "{{ $streamer['name'] }}",
             autoplay: false
         });

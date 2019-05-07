@@ -59,4 +59,10 @@ class StreamerService implements StreamerServiceInterface
         $this->streamerRepository->setUser(Auth::user());
         return $this->streamerRepository->getById($id);
     }
+
+    public function delete(Streamer $streamer): bool
+    {
+        $this->twitchAPIService->unsubscribeFromEvents($streamer);
+        return $this->streamerRepository->delete($streamer);
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Services\EventServiceInterface;
+use App\Models\Streamer;
 use App\Streamer\Services\StreamerServiceInterface;
 use App\Http\Requests\AddToFavoriteRequest;
 
@@ -12,14 +14,20 @@ class StreamerController extends Controller
      * @var StreamerServiceInterface
      */
     private $streamerService;
+    /**
+     * @var EventServiceInterface
+     */
+    private $eventService;
 
     /**
      * StreamerController constructor.
      * @param StreamerServiceInterface $streamerService
+     * @param EventServiceInterface $eventService
      */
-    public function __construct(StreamerServiceInterface $streamerService)
+    public function __construct(StreamerServiceInterface $streamerService, EventServiceInterface $eventService)
     {
         $this->streamerService = $streamerService;
+        $this->eventService = $eventService;
     }
 
     public function index()
@@ -34,9 +42,18 @@ class StreamerController extends Controller
         return redirect(route('dashboard'));
     }
 
-    public function show(int $id)
+    public function delete(Streamer $streamer)
     {
-        return view('streamer', ['streamer' => $this->streamerService->getById($id)]);
+        $this->streamerService->delete($streamer);
+        return back();
+    }
+
+    public function show(Streamer $streamer)
+    {
+        return view('streamer', [
+            'streamer' => $streamer,
+            'events' => $this->eventService->getByStreamer($streamer)
+        ]);
     }
 
 }

@@ -22,15 +22,17 @@ Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCall
     ->where('provider', 'twitch')
     ->name('socialCallback');
 
-Route::get('webhook/channel/{id}/event', 'EventController@accept')->name('twitchEventsCallbackConfirm');
-Route::post('webhook/channel/{id}/event', 'EventController@store')->name('twitchEventsCallbackHandle');
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/', 'StreamerController@index')->name('dashboard');
-    Route::get('streamer/{id}', 'StreamerController@show')->name('showStreamer');
+    Route::get('streamer/{streamer}', 'StreamerController@show')->name('showStreamer');
+    Route::delete('streamer/{streamer}', 'StreamerController@delete')->name('deleteStreamer');
     Route::post('streamer', 'StreamerController@addToFavorite')->name('addStreamer');
 });
 
+Route::prefix('webhook')->group(function () {
+    Route::get('streamer/{streamer}/event/{type}', 'EventController@accept')->name('twitchEventCallbackConfirm');
+    Route::post('streamer/{streamer}/event/{type}', 'EventController@store')->name('twitchEventCallbackHandle');
+});
 
 
 

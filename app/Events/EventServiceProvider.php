@@ -2,11 +2,10 @@
 
 namespace App\Events;
 
-use App\Streamer\Repositories\ChannelRepository;
-use App\Streamer\Repositories\ChannelRepositoryInterface;
-use App\Streamer\Services\ChannelService;
-use App\Streamer\Services\ChannelServiceInterface;
-use App\Common\TwitchAPIService;
+use App\Events\Repositories\EventRepository;
+use App\Events\Repositories\EventRepositoryInterface;
+use App\Events\Services\EventService;
+use App\Events\Services\EventServiceInterface;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,15 +18,14 @@ class EventServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(ChannelServiceInterface::class, function(Container $app) {
-            return new ChannelService(
-                $app->make(ChannelRepositoryInterface::class),
-                $app->make(TwitchAPIService::class)
+        $this->app->bind(EventServiceInterface::class, function(Container $app) {
+            return new EventService(
+                $app->make(EventRepositoryInterface::class)
             );
         });
 
-        $this->app->bind(ChannelRepositoryInterface::class, function() {
-            return new ChannelRepository();
+        $this->app->bind(EventRepositoryInterface::class, function() {
+            return new EventRepository();
         });
     }
 

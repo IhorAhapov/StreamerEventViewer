@@ -14,6 +14,11 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'channel_id'
+        'name', 'description', 'streamer_id'
     ];
+
+    public function streamer()
+    {
+        return $this->belongsTo(Streamer::class);
+    }
 }

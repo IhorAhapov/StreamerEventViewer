@@ -23,13 +23,24 @@
 
                     <div class="card-body">
                         Your streamers:
-                        @foreach($streamers as $streamer)
-                            <div class="input-group mb-3">
-                                <a href="{{ route('showStreamer', ['id' => $streamer['id']]) }}">
-                                {{$streamer['name']}} <!-- todo think about delete streamer -->
-                                </a>
-                            </div>
-                        @endforeach
+                        <div class="col-md-12">
+                            @foreach($streamers as $streamer)
+                                <span style="float: left">
+                                    <a href="{{ route('showStreamer', ['streamer' => $streamer['id']]) }}">
+                                        {{$streamer['name']}}
+                                    </a>
+                                </span>
+                                <span style="float: right">
+                                    <form id="delete-form-{{ $streamer['id'] }}" method="POST"
+                                          action="{{ route('deleteStreamer', ['streamer' => $streamer['id']]) }}">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <a href="javascript:$('#delete-form-{{ $streamer['id'] }}').submit();">X</a>
+                                    </form>
+                                </span>
+                                </br>
+                            @endforeach
+                        </div>
                     </div>
 
                 </div>

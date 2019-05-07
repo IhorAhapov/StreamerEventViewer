@@ -3,10 +3,10 @@
 namespace App\Events\Services;
 
 
-use App\Models\Channel;
+use App\Models\Streamer;
 
 interface EventServiceInterface
 {
-    public function store(array $event) : bool;
-    public function getByChannel(Channel $channel) : array;
+    public function store(array $event, string $type, Streamer $streamer) : bool;
+    public function getByStreamer(Streamer $streamer) : array;
 }

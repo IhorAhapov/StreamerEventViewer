@@ -3,19 +3,19 @@
 namespace App\Events\Repositories;
 
 
-use App\Models\Channel;
 use App\Models\Event;
+use App\Models\Streamer;
 
 class EventRepository implements EventRepositoryInterface
 {
 
-    public function create(Event $event): bool
+    public function create(Event $event, Streamer $streamer): bool
     {
-        // TODO: Implement create() method.
+        return (bool)$streamer->events()->save($event);
     }
 
-    public function getByChannel(Channel $channel): array
+    public function getByStreamer(Streamer $streamer, int $count): array
     {
-        // TODO: Implement getByChannel() method.
+        return $streamer->events->take($count)->toArray();
     }
 }
