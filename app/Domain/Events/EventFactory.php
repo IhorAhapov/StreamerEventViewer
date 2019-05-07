@@ -24,7 +24,7 @@ class EventFactory
         ],
         'UserGainsFollower' => [
             'name' => 'Gains follower',
-            'description' => '%s gains new follower. Hi\'s name is %s',
+            'description' => '%s gains new follower. His name is %s',
             'emptyDataDescription' => '',
             'fields' => ['to_name', 'from_name']
         ]
