@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Common\TwitchAPIService;
-use App\Events\Exceptions\InvalidEventType;
-use App\Events\Services\EventServiceInterface;
-use App\Streamer\Services\StreamerServiceInterface;
+use App\Domain\Common\TwitchAPIService;
+use App\Domain\Events\Exceptions\InvalidEventType;
+use App\Domain\Events\Services\EventServiceInterface;
+use App\Domain\Streamer\Services\StreamerServiceInterface;
 use Illuminate\Http\Request;
 
 class EventController extends Controller

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\Services\EventServiceInterface;
+use App\Domain\Events\Services\EventServiceInterface;
+use App\Domain\Streamer\Services\StreamerServiceInterface;
 use App\Models\Streamer;
-use App\Streamer\Services\StreamerServiceInterface;
 use App\Http\Requests\AddToFavoriteRequest;
 
 class StreamerController extends Controller

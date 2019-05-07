@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\SocialType\Services\SocialTypeServiceInterface;
-use App\User\Services\UserServiceInterface;
+use App\Domain\SocialType\Services\SocialTypeServiceInterface;
+use App\Domain\User\Services\UserServiceInterface;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;

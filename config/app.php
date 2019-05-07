@@ -1,10 +1,10 @@
 <?php
 
-use App\Events\EventServiceProvider;
 use SocialiteProviders\Manager\ServiceProvider;
-use App\SocialType\SocialTypeServiceProvider;
-use App\User\UserServiceProvider;
-use App\Streamer\StreamerServiceProvider;
+use App\Domain\Events\EventServiceProvider;
+use App\Domain\SocialType\SocialTypeServiceProvider;
+use App\Domain\User\UserServiceProvider;
+use App\Domain\Streamer\StreamerServiceProvider;
 
 return [
 

@@ -2,10 +2,7 @@
 
 namespace App\Providers;
 
-use App\SocialType\SocialTypeRepository;
-use App\SocialType\SocialTypeRepositoryInterface;
-use App\SocialType\SocialTypeService;
-use App\SocialType\SocialTypeServiceInterface;
+
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 
