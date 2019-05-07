@@ -33,8 +33,6 @@ class EventController extends Controller
 
     public function accept(int $id, Request $request)
     {
-        info("ACCEPT action. Channel id = {$id} : " . json_encode($request->all()));//todo remove it
-
         if ($request->has('hub_challenge')) {
             return $request->get('hub_challenge');
         }
@@ -45,8 +43,6 @@ class EventController extends Controller
     public function store(int $id, string $type, Request $request)
     {
         $streamer = $this->streamerService->getByStreamerId($id);
-
-        info("STORE action. Channel id = {$streamer->id} : " . json_encode($request->all()));//todo remove it
 
         if (!in_array($type, TwitchAPIService::EVENT_TYPES)) {
             throw new InvalidEventType();
