@@ -10,5 +10,5 @@ interface StreamerServiceInterface
     public function saveToFavorite(string $name) : bool;
     public function delete(Streamer $streamer) : bool;
     public function getAllStreamers() : array;
-    public function getById(int $id) : Streamer;
+    public function getByStreamerId(int $id) : Streamer;
 }

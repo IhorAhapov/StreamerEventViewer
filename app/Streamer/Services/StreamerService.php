@@ -54,10 +54,9 @@ class StreamerService implements StreamerServiceInterface
         return $this->streamerRepository->getAll();
     }
 
-    public function getById(int $id): Streamer
+    public function getByStreamerId(int $id): Streamer
     {
-        $this->streamerRepository->setUser(Auth::user());
-        return $this->streamerRepository->getById($id);
+        return $this->streamerRepository->getByStreamerId($id);
     }
 
     public function delete(Streamer $streamer): bool

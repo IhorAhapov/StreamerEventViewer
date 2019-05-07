@@ -30,8 +30,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::prefix('webhook')->group(function () {
-    Route::get('streamer/{streamer}/event/{type}', 'EventController@accept')->name('twitchEventCallbackConfirm');
-    Route::post('streamer/{streamer}/event/{type}', 'EventController@store')->name('twitchEventCallbackHandle');
+    Route::get('streamer/{id}/event/{type}', 'EventController@accept')->name('twitchEventCallbackConfirm');
+    Route::post('streamer/{id}/event/{type}', 'EventController@store')->name('twitchEventCallbackHandle');
 });
 
 

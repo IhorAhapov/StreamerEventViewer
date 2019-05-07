@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Common\TwitchAPIService;
 use App\Events\Exceptions\InvalidEventType;
 use App\Events\Services\EventServiceInterface;
-use App\Models\Streamer;
+use App\Streamer\Services\StreamerServiceInterface;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -15,19 +15,25 @@ class EventController extends Controller
      * @var EventServiceInterface
      */
     private $eventService;
+    /**
+     * @var StreamerServiceInterface
+     */
+    private $streamerService;
 
     /**
      * EventController constructor.
      * @param EventServiceInterface $eventService
+     * @param StreamerServiceInterface $streamerService
      */
-    public function __construct(EventServiceInterface $eventService)
+    public function __construct(EventServiceInterface $eventService, StreamerServiceInterface $streamerService)
     {
         $this->eventService = $eventService;
+        $this->streamerService = $streamerService;
     }
 
-    public function accept(Streamer $streamer, Request $request)
+    public function accept(int $id, Request $request)
     {
-        info("ACCEPT action. Channel id = {$streamer->id} : " . json_encode($request->all()));//todo remove it
+        info("ACCEPT action. Channel id = {$id} : " . json_encode($request->all()));//todo remove it
 
         if ($request->has('hub_challenge')) {
             return $request->get('hub_challenge');
@@ -36,8 +42,10 @@ class EventController extends Controller
         return abort(400);
     }
 
-    public function store(Streamer $streamer, string $type, Request $request)
+    public function store(int $id, string $type, Request $request)
     {
+        $streamer = $this->streamerService->getByStreamerId($id);
+
         info("STORE action. Channel id = {$streamer->id} : " . json_encode($request->all()));//todo remove it
 
         if (!in_array($type, TwitchAPIService::EVENT_TYPES)) {

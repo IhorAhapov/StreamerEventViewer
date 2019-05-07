@@ -23,9 +23,9 @@ class StreamerRepository implements StreamerRepositoryInterface
         return $this->user->streamers->toArray();
     }
 
-    public function getById(int $id): Streamer
+    public function getByStreamerId(int $id): Streamer
     {
-        return $this->user->streamers()->findOrFail($id);
+        return Streamer::where('streamer_id', $id)->firstOrFail();
     }
 
     public function setUser(User $user): void
