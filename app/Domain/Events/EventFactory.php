@@ -35,11 +35,16 @@ class EventFactory
         $event = new Event();
 
         try {
-            $fields = array_map(function($field) use ($data) {
-                return $data[$field];
-            }, self::EVENT_MAPPING[$type]['fields']);
 
-            $event->description = vsprintf(self::EVENT_MAPPING[$type]['description'], $fields);
+            if (!empty($data)) {
+                $fields = array_map(function($field) use ($data) {
+                    return $data[$field];
+                }, self::EVENT_MAPPING[$type]['fields']);
+                $event->description = vsprintf(self::EVENT_MAPPING[$type]['description'], $fields);
+            } else {
+                $event->description = self::EVENT_MAPPING[$type]['emptyDataDescription'];
+            }
+
             $event->name = self::EVENT_MAPPING[$type]['name'];
         } catch (\Exception $exception) {
             throw new InvalidEventFormat();

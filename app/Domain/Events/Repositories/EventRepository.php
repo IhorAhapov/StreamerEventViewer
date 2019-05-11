@@ -16,6 +16,6 @@ class EventRepository implements EventRepositoryInterface
 
     public function getByStreamer(Streamer $streamer, int $count): array
     {
-        return $streamer->events->take($count)->toArray();
+        return $streamer->events->sortByDesc('id')->take($count)->toArray();
     }
 }
