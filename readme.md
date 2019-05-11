@@ -1,8 +1,8 @@
-#StreamerEventViewer
+# StreamerEventViewer
 
 Link for live demo: http://streamer-event-viewer1.herokuapp.com
 
-##Questuions
+## Questuions
 
 - How would you deploy the above on AWS?
     - I would choose the default stack with EC2 and RDS at first. Unfortunately, I haven't deployed to AWS any projects from scratch before.
